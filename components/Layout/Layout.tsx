@@ -1,66 +1,54 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Head from "next/head";
-import styled, { createGlobalStyle, ThemeProvider } from "styled-components";
-const title = "Hi-Fi Corner";
+import { ThemeProvider } from "styled-components";
+import GlobalStyle from "./GlobalStyle";
 
 interface Iprops {
   children: React.ReactNode;
   home?: boolean;
 }
 
+const title = "Hi-Fi Corner";
+const Theme = {
+  lightmode: {
+    background: "#eee;",
+    color: "#333;",
+  },
+  darkMode: {
+    background: "#333;",
+    color: "#eee;",
+  },
+};
+
 const Layout: React.FC<Iprops> = ({ children, home }) => {
-  const Global = createGlobalStyle`
-  html,
-  body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  line-height: 1.6;
-  font-size: 18px;
-}
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
-* {
-  box-sizing: border-box;
-}
-
-a {
-  color: #0070f3;
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
-img {
-  max-width: 100%;
-  display: block;
-}
-
-  `;
-
-  const theme = {
-    background: "#320",
+  const toggleTheme = () => {
+    setIsDarkMode(!isDarkMode);
   };
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-color-scheme)").media !== "not all") {
+      window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? setIsDarkMode(true)
+        : setIsDarkMode(false);
+    }
+  }, []);
+
   return (
-    <ThemeProvider theme={theme}>
-      <React.Fragment>
-        <Head>
-          <link rel="i  con" href="/favicon.ico" />
-          <meta
-            name="description"
-            content="Learn how to build a personal website using Next.js"
-          />
-          <meta name="og:title" content={title} />
-          <meta name="twitter:card" content="summary_large_image" />
-          <title>{title}</title>
-        </Head>
-        <div>header</div>
-        <main>{children}</main>
-        <footer>footer</footer>
-        <Global />
-      </React.Fragment>
+    <ThemeProvider theme={!isDarkMode ? Theme.lightmode : Theme.darkMode}>
+      <GlobalStyle />
+      <Head>
+        <link rel="i  con" href="/favicon.ico" />
+        <meta name="description" content="Hi-Fi Corner Next.js" />
+        <meta name="og:title" content={title} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <title>{title}</title>
+      </Head>
+      <header>header</header>
+      <button onClick={() => toggleTheme()}>Toggle Theme</button>
+      <main>{children}</main>
+      <footer>footer</footer>
     </ThemeProvider>
   );
 };
