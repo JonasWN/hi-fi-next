@@ -1,16 +1,37 @@
 import { createGlobalStyle } from "styled-components";
+const FontFaceObserver = require("fontfaceobserver");
 
-const GlobalStyle = createGlobalStyle`
+export const Fonts = () => {
+  const link = document.createElement("link");
+  link.href =
+    "https://fonts.googleapis.com/css?family=Oswald:300,400,500,700,900";
+  link.rel = "stylesheet";
+
+  document.head.appendChild(link);
+
+  const oswald = new FontFaceObserver("Oswald");
+
+  oswald.load().then(() => {
+    document.documentElement.classList.add("oswald");
+  });
+};
+
+export const GlobalStyle = createGlobalStyle`
 html,
 body {
 padding: 0;
 margin: 0;
-font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-  Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 line-height: 1.6;
 font-size: 18px;
+//@ts-ignore
 background: ${(props) => props.theme.background}
-color: ${(props) => props.theme.color}
+//@ts-ignore
+color: ${(props) => props.theme.colors.normal}
+height: 100%;
+width: 100%;
+min-height: 100%;
+overflow-x: hidden;
+scroll-behaivor: smooth;
 }
 
 * {
@@ -27,10 +48,12 @@ text-decoration: underline;
 }
 
 img {
-max-width: 100%;
+width: 100%;
+height: auto;
 display: block;
 }
 
+.oswald {
+  font-family: oswald
+}
 `;
-
-export default GlobalStyle;
