@@ -1,7 +1,8 @@
 import React from "react";
+import { motion } from "framer-motion";
 
-const shop = () => {
-  return <div>shop</div>;
+const Shop = (props: any) => {
+  return <motion.div exit={{ opacity: 0 }}>Shop</motion.div>;
 };
 
-export default shop;
+export default Shop;

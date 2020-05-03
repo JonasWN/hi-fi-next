@@ -23,13 +23,14 @@ const Links = styled.div``;
 
 const Header = () => {
   return (
-    <HeaderStyle>
-      <Nav>
-        <Links>Settings</Links>
-        <Links> Catagories </Links>
-        <Links>Products</Links>
-      </Nav>
-    </HeaderStyle>
+    // <HeaderStyle>
+    //   <Nav>
+    //     <Links>Settings</Links>
+    //     <Links> Catagories </Links>
+    //     <Links>Products</Links>
+    //   </Nav>
+    // </HeaderStyle>
+    <React.Fragment></React.Fragment>
   );
 };
 
