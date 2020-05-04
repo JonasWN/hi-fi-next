@@ -8,18 +8,19 @@ import Layout from "../components/Layout/Layout";
 export default function Home() {
   return (
     <motion.div
-      exit={{
-        opacity: 0,
-        x: "-100vw",
-        transition: { duration: 0.8, ease: "easeOut", staggerChildren: 0.4 },
+      initial={{ opacity: 0 }}
+      animate={{
+        opacity: 1,
+        transition: { duration: 0.6, ease: [0.48, 0.15, 0.25, 0.96] },
       }}
     >
-      <header>
+      <motion.header exit={{ opacity: 0 }}>
         <img src="/images/hero.jpg" alt="hero img" />
-      </header>
-      <div style={{ position: "relative", height: "150px" }}>
-        <ClipedDiv></ClipedDiv>
-      </div>
+
+        <div style={{ position: "relative", height: "150px" }}>
+          <ClipedDiv></ClipedDiv>
+        </div>
+      </motion.header>
       <main></main>
       <Catagories />
     </motion.div>

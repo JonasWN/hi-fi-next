@@ -33,40 +33,35 @@ const Catagories: React.FC = () => {
 
   useEffect(() => {
     if (inView) {
-      animation.start("show");
+      animation.start("enter");
     }
   }, [animation, inView]);
 
   return (
-    <AnimatePresence exitBeforeEnter>
-      <Section>
-        <motion.h2 variants={title} initial="hidden" animate={animation}>
-          Catagories
-        </motion.h2>
-        <CatagoryContainer
-          animate={animation}
-          ref={catagoryRef}
-          variants={container}
-          initial="hidden"
-          exit={{ y: -50, opacity: 0 }}
-          key={2}
-        >
-          {catagories.map((catagory, id) => (
-            <Link href="/shop" key={id}>
-              <CatagoryCard
-                key={id}
-                variants={item}
-                exit={{ opacity: 0, x: -50 }}
-                whileHover={{ scale: 1.01 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                {catagory.title}
-              </CatagoryCard>
-            </Link>
-          ))}
-        </CatagoryContainer>
-      </Section>
-    </AnimatePresence>
+    <Section animate="animate" exit="exit">
+      <motion.h2 variants={title} initial="initial" animate={animation}>
+        Catagories
+      </motion.h2>
+      <CatagoryContainer
+        initial="initial"
+        animate={animation}
+        ref={catagoryRef}
+        variants={staggerContainer}
+      >
+        {catagories.map((catagory, id) => (
+          <Link href="/shop" key={id}>
+            <CatagoryCard
+              key={id}
+              variants={item}
+              whileHover={{ scale: 1.01 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              {catagory.title}
+            </CatagoryCard>
+          </Link>
+        ))}
+      </CatagoryContainer>
+    </Section>
   );
 };
 
@@ -100,24 +95,25 @@ const Section = styled(motion.section)`
 
 let easing = [0.6, -0.05, 0.01, 0.99];
 
-const container = {
-  hidden: { opacity: 0 },
-  show: {
+const staggerContainer = {
+  initial: { opacity: 0 },
+  enter: {
     opacity: 1,
     transition: {
       staggerChildren: 0.2,
       delayChildren: 0.4,
     },
   },
+  exit: { transition: { staggerChildren: 0.1 } },
 };
 
 const item = {
-  hidden: {
+  initial: {
     opacity: 0,
     y: -100,
     transition: { duration: 0.4, ease: "easeInOut" },
   },
-  show: {
+  enter: {
     opacity: 1,
     y: 0,
     transition: {
@@ -125,12 +121,21 @@ const item = {
       ease: "easeInOut",
     },
   },
-  whileHover: { scale: 1.1 },
+  exit: {
+    x: -50,
+    opacity: 0,
+    transition: { duration: 0.4, ease: [0.48, 0.15, 0.25, 0.96] },
+  },
 };
 
 const title = {
-  hidden: { opacity: 0, x: -100, transition: { duration: 0.6, ease: easing } },
-  show: { opacity: 1, x: 0, transition: { duration: 0.6, ease: easing } },
+  initial: { opacity: 0, x: -100, transition: { duration: 0.6, ease: easing } },
+  enter: { opacity: 1, x: 0, transition: { duration: 0.6, ease: easing } },
+  exit: {
+    y: -50,
+    opacity: 0,
+    transition: { duration: 0.4, ease: [0.48, 0.15, 0.25, 0.96] },
+  },
 };
 
 export default Catagories;
