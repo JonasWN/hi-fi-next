@@ -1,34 +1,28 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
-import { motion, useAnimation, AnimatePresence } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import Link from "next/link";
 
-const Catagories: React.FC = () => {
-  const [catagories, setCatagories] = useState([
-    {
-      title: "speakers",
-      id: 1,
-    },
-    {
-      title: "CD",
-      id: 2,
-    },
-    {
-      title: "turntables",
-      id: 3,
-    },
-    {
-      title: "Phones",
-      id: 4,
-    },
-  ]);
+interface Iobject {
+  category: string;
+  description: string;
+  images: string;
+  make: string;
+  model: string;
+  price: number;
+  sku: string;
+}
+interface Iprops {
+  catagories: Iobject[];
+}
 
+export const Catagories: React.FC<Iprops> = ({ catagories }) => {
   const animation = useAnimation();
   const [catagoryRef, inView] = useInView({
     triggerOnce: true,
     rootMargin: "-0px",
-    threshold: 1,
+    threshold: 0,
   });
 
   useEffect(() => {
@@ -56,7 +50,16 @@ const Catagories: React.FC = () => {
               whileHover={{ scale: 1.01 }}
               whileTap={{ scale: 0.9 }}
             >
-              {catagory.title}
+              {catagory.category}
+              <img
+                src={catagory.images[0]}
+                alt="catagory image"
+                style={{
+                  height: "40px",
+                  objectFit: "contain",
+                  marginTop: "20%",
+                }}
+              />
             </CatagoryCard>
           </Link>
         ))}
@@ -81,6 +84,8 @@ const CatagoryCard = styled(motion.button)`
     height: 30vh;
     max-width: 400px;
     font-family: Oswald;
+    font-size: 0.85em;
+    border: none;
 `;
 
 const Section = styled(motion.section)`
@@ -93,7 +98,7 @@ const Section = styled(motion.section)`
   }
 `;
 
-let easing = [0.6, -0.05, 0.01, 0.99];
+let easing = [0.48, 0.15, 0.25, 0.96];
 
 const staggerContainer = {
   initial: { opacity: 0 },
@@ -137,5 +142,3 @@ const title = {
     transition: { duration: 0.4, ease: [0.48, 0.15, 0.25, 0.96] },
   },
 };
-
-export default Catagories;

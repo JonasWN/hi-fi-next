@@ -1,11 +1,44 @@
-import Link from "next/link";
 import styled from "styled-components";
 import React from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import Catagories from "../components/Catagories/Catagories";
-import Layout from "../components/Layout/Layout";
+import { motion } from "framer-motion";
+import { Catagories } from "../components/Catagories/Catagories";
+import fetch from "node-fetch";
 
-export default function Home() {
+const API = "https://hifi-corner.herokuapp.com/api/v1/products";
+
+async function getData(url: string) {
+  const res = await fetch(url);
+  const data = await res.json();
+
+  return data;
+}
+
+export async function getStaticProps() {
+  const allData = await getData(API);
+
+  return {
+    props: {
+      allData,
+    },
+  };
+}
+
+interface Iobject {
+  category: string;
+  description: string;
+  images: string;
+  make: string;
+  model: string;
+  price: number;
+  sku: string;
+}
+
+export default function Home(props: any) {
+  const catagories: Iobject[] = props.allData.filter(
+    (item: Iobject, index: number, list: object[]) =>
+      index === list.findIndex((obj: any) => obj.category === item.category)
+  );
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -22,7 +55,7 @@ export default function Home() {
         </div>
       </motion.header>
       <main></main>
-      <Catagories />
+      <Catagories catagories={catagories} />
     </motion.div>
   );
 }
