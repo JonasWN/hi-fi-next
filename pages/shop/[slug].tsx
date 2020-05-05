@@ -31,8 +31,8 @@ const Catagory: React.FC<Iprops> = ({ allData }) => {
         return (
           <div key={index}>
             <h2>{item.model}</h2>
-            <Link href={`/`}>
-              <a href="">Home</a>
+            <Link href="/" passHref>
+              <a>Home</a>
             </Link>
           </div>
         );
@@ -57,10 +57,15 @@ export const getStaticPaths = async () => {
   const API = "https://hifi-corner.herokuapp.com/api/v1/products";
   const allData = await getData(API);
 
-  const paths = allData.map((catagory: string) => {
+  // Remove Duplicated Catagories
+  const catagories: Iobject[] = allData.filter(
+    (item: Iobject, index: number, list: object[]) =>
+      index === list.findIndex((obj: any) => obj.category === item.category)
+  );
+
+  const paths = catagories.map((catagory: Iobject) => {
     return {
       params: {
-        //@ts-ignore
         slug: catagory.category,
       },
     };

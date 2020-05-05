@@ -45,6 +45,7 @@ export const Catagories: React.FC<Iprops> = ({ catagories }) => {
         {catagories.map((catagory, id) => (
           <Link
             href={`/shop/[slug]`}
+            passHref
             as={`/shop/${catagory.category}`}
             key={id}
           >
@@ -113,7 +114,7 @@ const staggerContainer = {
       delayChildren: 0.4,
     },
   },
-  exit: { transition: { staggerChildren: 0.1 } },
+  exit: { transition: { staggerChildren: 0.05 } },
 };
 
 const item = {

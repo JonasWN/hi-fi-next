@@ -14,7 +14,7 @@ interface Iobject {
   sku: string;
 }
 
-export default function Home(props: any) {
+const Home = (props: any) => {
   const catagories: Iobject[] = props.allData.filter(
     (item: Iobject, index: number, list: object[]) =>
       index === list.findIndex((obj: any) => obj.category === item.category)
@@ -42,7 +42,7 @@ export default function Home(props: any) {
       <Catagories catagories={catagories} />
     </motion.div>
   );
-}
+};
 
 export async function getStaticProps() {
   const API = "https://hifi-corner.herokuapp.com/api/v1/products";
@@ -88,3 +88,5 @@ const HeadingSecond = styled(motion.h1)`
   font-size: 1.5em;
   }
 `;
+
+export default Home;
