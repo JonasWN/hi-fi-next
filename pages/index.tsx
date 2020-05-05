@@ -2,26 +2,7 @@ import styled from "styled-components";
 import React from "react";
 import { motion } from "framer-motion";
 import { Catagories } from "../components/Catagories/Catagories";
-import fetch from "node-fetch";
-
-const API = "https://hifi-corner.herokuapp.com/api/v1/products";
-
-async function getData(url: string) {
-  const res = await fetch(url);
-  const data = await res.json();
-
-  return data;
-}
-
-export async function getStaticProps() {
-  const allData = await getData(API);
-
-  return {
-    props: {
-      allData,
-    },
-  };
-}
+import { getData } from "../lib/api";
 
 interface Iobject {
   category: string;
@@ -41,13 +22,16 @@ export default function Home(props: any) {
 
   return (
     <motion.div
-      initial={{ opacity: 0 }}
       animate={{
         opacity: 1,
         transition: { duration: 0.6, ease: [0.48, 0.15, 0.25, 0.96] },
       }}
     >
-      <motion.header exit={{ opacity: 0 }}>
+      <motion.header
+        exit={{ opacity: 0 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+      >
         <img src="/images/hero.jpg" alt="hero img" />
 
         <div style={{ position: "relative", height: "150px" }}>
@@ -58,6 +42,17 @@ export default function Home(props: any) {
       <Catagories catagories={catagories} />
     </motion.div>
   );
+}
+
+export async function getStaticProps() {
+  const API = "https://hifi-corner.herokuapp.com/api/v1/products";
+  const allData = await getData(API);
+
+  return {
+    props: {
+      allData,
+    },
+  };
 }
 
 const ClipedDiv = styled.div`

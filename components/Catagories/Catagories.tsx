@@ -43,7 +43,11 @@ export const Catagories: React.FC<Iprops> = ({ catagories }) => {
         variants={staggerContainer}
       >
         {catagories.map((catagory, id) => (
-          <Link href="/shop" key={id}>
+          <Link
+            href={`/shop/[slug]`}
+            as={`/shop/${catagory.category}`}
+            key={id}
+          >
             <CatagoryCard
               key={id}
               variants={item}
