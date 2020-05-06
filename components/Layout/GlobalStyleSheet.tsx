@@ -43,6 +43,10 @@ color: #0070f3;
 text-decoration: none;
 }
 
+li{
+  list-style:none
+}
+
 a:hover {
 text-decoration: underline;
 }
