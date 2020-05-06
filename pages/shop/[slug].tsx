@@ -59,7 +59,16 @@ const Shop: React.FC<Iprops> = ({ products, links }) => {
             >
               <div key={index}>
                 <h2>{item.model}</h2>
-                <img src={item.images[0]} alt="product img" />
+                <img
+                  src={item.images[0]}
+                  alt="product img"
+                  style={{
+                    width: "70vw",
+                    height: "auto",
+                    objectFit: "contain",
+                    border: "1px solid #888",
+                  }}
+                />
               </div>
             </Link>
           );
