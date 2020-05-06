@@ -17,6 +17,20 @@ export const Fonts = () => {
 };
 
 export const GlobalStyle = createGlobalStyle`
+* {
+  border: 0;
+  box-sizing: inherit;
+  -webkit-font-smoothing: auto;
+  font-weight: inherit;
+  margin: 0;
+  outline: 0;
+  padding: 0;
+  text-decoration: none;
+  text-rendering: optimizeLegibility;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
 html,
 body {
 padding: 0;
@@ -34,10 +48,6 @@ overflow-x: hidden;
 scroll-behavior: smooth;
 }
 
-* {
-box-sizing: border-box;
-}
-
 a {
 color: #0070f3;
 text-decoration: none;
@@ -49,6 +59,7 @@ li{
 
 a:hover {
 text-decoration: underline;
+cursor: pointer;
 }
 
 img {
@@ -61,3 +72,20 @@ display: block;
   font-family: oswald
 }
 `;
+
+export const Theme = {
+  lightmode: {
+    background: "#e9eef3;",
+    colors: {
+      normal: "#0e1115;",
+      highlight: "#ffe398;",
+    },
+  },
+  darkMode: {
+    background: "#0e1115;",
+    colors: {
+      normal: "#e9eef3;",
+      highlight: "#ffe398;",
+    },
+  },
+};

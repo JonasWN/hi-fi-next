@@ -63,7 +63,7 @@ const Shop: React.FC<Iprops> = ({ products, links }) => {
                   src={item.images[0]}
                   alt="product img"
                   style={{
-                    width: "70vw",
+                    width: "180px",
                     height: "auto",
                     objectFit: "contain",
                     border: "1px solid #888",

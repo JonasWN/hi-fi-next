@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import styled, { ThemeProvider } from "styled-components";
-import { Fonts, GlobalStyle } from "./GlobalStyleSheet";
+import { Fonts, GlobalStyle, Theme } from "./GlobalStyleSheet";
 import Header from "./Header";
 import Footer from "./Footer";
 
@@ -9,24 +9,7 @@ interface Iprops {
   children: React.ReactNode;
   home?: boolean;
 }
-
 const title = "Hi-Fi Corner";
-const Theme = {
-  lightmode: {
-    background: "#e9eef3;",
-    colors: {
-      normal: "#0e1115;",
-      highlight: "#ffe398;",
-    },
-  },
-  darkMode: {
-    background: "#0e1115;",
-    colors: {
-      normal: "#e9eef3;",
-      highlight: "#ffe398;",
-    },
-  },
-};
 
 const Layout: React.FC<Iprops> = ({ children, home }) => {
   useEffect(() => {
