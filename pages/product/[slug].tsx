@@ -1,7 +1,7 @@
 import React from "react";
-import { getData } from "../../lib/api";
+import { getData } from "../../utils/api";
 import { motion } from "framer-motion";
-import { ClipedDiv } from "../../style";
+import { ClipedDiv } from "../../style/index";
 
 interface Iprops {
   product: Iobject;

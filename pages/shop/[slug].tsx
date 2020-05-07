@@ -1,8 +1,9 @@
 import React from "react";
-import { getData } from "../../lib/api";
+import { getData } from "../../utils/api";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { Heading, LinksContainer } from "../../style/shop";
+const slugg = require("slug");
 
 interface Iprops {
   products: Iobject[];
@@ -38,7 +39,7 @@ const Shop: React.FC<Iprops> = ({ products, links }) => {
           return (
             <Link
               href={`/shop/[slug]`}
-              as={`/shop/${link}`}
+              as={`/shop/${slugg(link)}`}
               passHref
               key={index}
             >
@@ -80,7 +81,9 @@ const Shop: React.FC<Iprops> = ({ products, links }) => {
 
 //@ts-ignore
 export const getStaticProps = async ({ params: { slug } }) => {
-  const CATAGORY = `https://hifi-corner.herokuapp.com/api/v1/products?category=${slug}&minPrice=100&maxPrice=8000`;
+  const query = slugg(slug, " ");
+
+  const CATAGORY = `https://hifi-corner.herokuapp.com/api/v1/products?category=${query}&minPrice=100&maxPrice=8000`;
   const PRODUCTS = "https://hifi-corner.herokuapp.com/api/v1/products";
   const [products, Catagories] = await Promise.all([
     getData(CATAGORY),
@@ -113,9 +116,10 @@ export const getStaticPaths = async () => {
   );
 
   const paths = catagories.map((catagory: Iobject) => {
+    const path = slugg(catagory.category);
     return {
       params: {
-        slug: catagory.category,
+        slug: path,
       },
     };
   });

@@ -1,8 +1,7 @@
-import styled from "styled-components";
 import React from "react";
 import { motion } from "framer-motion";
 import { Catagories } from "../components/Catagories/Catagories";
-import { getData } from "../lib/api";
+import { getData } from "../utils/api";
 import { ClipedDiv } from "../style";
 
 interface Iobject {
